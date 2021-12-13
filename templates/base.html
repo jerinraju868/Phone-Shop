@@ -1,0 +1,89 @@
+{% load static %}
+
+
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home - Pintereso Bootstrap Template</title>
+    <script type="text/javascript">
+     (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+    <link rel="stylesheet" href="{% static 'home1/css/app.css'%}">
+    <link rel="stylesheet" href="{% static 'home1/css/theme.css'%}">
+
+    <link href="{% static 'assets/css/mediumish.css'%}" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
+        <a class="navbar-brand font-weight-bolder mr-3" href="/"><img src="{% static 'img_4.png'%}" width="30px" height="30px"></a>
+        <button class="navbar-light navbar-toggler" type="button " data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsDefault">
+    	<ul class="navbar-nav mr-auto align-items-center">
+            <form class="form-inline" action="{% url 'search' %} " method="get">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+          </form>
+    	</ul>
+
+            <ul class="navbar-nav ml-auto align-items-center">
+    		<li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+
+        {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'cartdetails'%}">
+                    Cart
+                <span class="badge badge-warning badge-pill">{{cn}}</span></a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">
+                        <img class="rounded-circle mr-2" src="{% static 'home1/img/av.png'%}" width="30">
+                        <span class="align-middle">{{user.username}}</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+
+        {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login'%}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup'%}">Signup</a>
+                </li>
+        {% endif%}
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'home1/assets/js/app.js'%}"></script>
+    <script src="{% static 'home1/assets/js/theme.js'%}"></script>
+    <footer class="footer pt-5 pb-5 text-center ">
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="list-unstyled">
+                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-facebook"></i></a></li>
+                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-twitter"></i></a></li>
+                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-instagram"></i></a></li>
+                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-google-plus"></i></a></li>
+                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-behance"></i></a></li>
+                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-dribbble"></i></a></li>
+            </ul>
+        </div>
+        <p class="card-body">Copyright &copy; 2021 - All Rights Reserved -   <span class="credits font-weight-bold">
+            <a target="_blank" class="text-dark" href="{% url 'shop' %}"><u>Created By</u> JerinRaju</a>
+        </span>
+        </p>
+    </div>
+    </footer>
+</body>
+</html>
