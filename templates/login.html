@@ -1,51 +1,67 @@
-{% extends 'base.html'%}
-{% load static %}
+{% extends 'base.html' %}
 {% block content %}
-<head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript">
-     (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
-    <link rel="stylesheet" href="{% static 'home1/css/app.css'%}">
-    <link rel="stylesheet" href="{% static 'home1/css/theme.css'%}">
-</head>
-<body>
-<section class="vh-100 bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Sign Up</h2>
-
-              <form method="post" action="{% url 'login' %}">
- {% csrf_token %}
-                <div class="form-outline mb-4">
-                  <input type="text" name="uname" class="form-control form-control-lg" placeholder="User Name" />
-                </div>
-                <div class="form-outline mb-4">
-                  <input type="password" name="passwd" class="form-control form-control-lg" placeholder="Password"/>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
-                </div>
-                <p class="text-center text-muted mt-5 mb-0">Dont have an account? <a href="{% url 'signup' %}" class="fw-bold text-body"><u>Signup here</u></a></p>
-              </form>
-            </div>
-          </div>
+<style>
+    .card 
+	{
+    align-items: center;
+    transition: 0.5s;
+    backface-visibility: hidden;
+    margin-right: auto;
+    margin-left: auto;
+    width: 350px;
+    height: 480px;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    border-radius: 1rem;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    text-align: center;
+	}
+	.card:hover 
+	{
+    box-shadow: 0 30px 70px #000;
+    transform: scale3d(1.05, 1.05, 1.05);
+	}
+	
+</style>
+<br><br><br>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-title" style="text-align: center">
+            <label style="font-size: xx-large; font-weight: bolder;margin-top: 10px;">Login</label> 
         </div>
-      </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" class="form-control" name="uname" placeholder="username" required autocomplete="off"><br>
+                <input type="password" class="form-control" name="pwd" placeholder="password" required autocomplete="off"><br>
+                <a href="" style="float: right;color: blue; font-style: italic;">Forgot Password</a><br><br>
+                <div class="d-grid gap-2">
+                    <input type="submit" class="btn btn-primary" value="Login">
+                </div>
+            </form><hr>
+
+            <div class="social-media">
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg"  style="width: 28px; height: 28px; color: blue;" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                      </svg>
+                </a>&nbsp;&nbsp;&nbsp;
+                <a href="">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu1PJmT_THldF0n5APcmt9p10utgu6KSw4cH2fQ5Xhpw&s" style="width: 28px; height: 28px;" >
+                </a>
+            </div><hr>
+            <div>
+                <label>Don't have account?</label>
+                <a href="{% url 'signup' %}" style="font-style: italic; color: blue;">Signup</a>
+            </div>
+            <div>
+                {% for message in messages %}
+                <label style="color: red;">{{message}}</label>    
+                <script>alert('{{message}}');</script>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
-</section>
-
-
-<script src="{% static 'home1/assets/js/app.js'%}"></script>
-    <script src="{% static 'home1/assets/js/theme.js'%}"></script>
-
-</body>
-</html>
+</div>
 {% endblock %}

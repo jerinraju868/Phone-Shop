@@ -1,31 +1,51 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    .card 
+	{
+    align-items: center;
+    transition: 0.5s;
+    backface-visibility: hidden;
+    margin-right: auto;
+    margin-left: auto;
+    width: auto;
+    height: fit-content;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    border-radius: 1rem;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+	}
+	
+</style>
 <br>
-<div class="container shadow"><br>
-		<section class="featured-posts">
-            <div class="card ">
-                <div class="row">
-                    <div class="col-md-5 wrapthumbnail">
-                        <figure><img src="{{pr.img.url}}" alt=""/></figure>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="card-block">
-                            <h2 class="card-title">{{pr.name}}</h2>
-                            <i class="card-text"><b>{{pr.desc}}</b></i>
-                            <div class="metafooter">
-                                <div class="wrapfooter">
-										<span class="author-meta">
-											<span class="post-name"><strong>Price : </strong>{{pr.price}}</span><br/>
-											<span class="post-name"><strong>Stock : </strong>{{pr.stock}}</span>
-										</span><br><br>
-                                    <a href="{% url 'add' pr.id %}" class="badge badge-warning"><h6>Add to Cart</h6></a><br><br>
-                                </div>
-                            </div>
+<div class="container">
+    <div class="card">
+        <div class="row">
+            <div class="col-md">
+                <figure>
+                    <a href="{{pr.img.url}}" target="_blank">
+                        <img src="{{pr.img.url}}" alt="" style="width: 450px;"  />
+                    </a>
+                </figure>
+            </div>
+            <div class="col-md">
+                <div class="card-block">
+                    <h2 class="card-title">{{pr.name}}</h2>
+                    <i class="card-text"><b>{{pr.desc}}</b></i>
+                    <div class="metafooter">
+                        <div class="wrapfooter">
+                                <span class="author-meta">
+                                    <span class="post-name"><strong>Price : </strong>{{pr.price}}</span><br/>
+                                    <span class="post-name"><strong>Stock : </strong>{{pr.stock}}</span>
+                                </span><br><br>
+                            <a href="{% url 'add' pr.id %}" class="btn btn-warning btn-sm"><h6>Add to Cart</h6></a><br><br>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 </div>
 {% endblock%}

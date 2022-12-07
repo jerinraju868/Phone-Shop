@@ -1,63 +1,89 @@
 {% load static %}
-
-
 <html lang="en">
-
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home - Pintereso Bootstrap Template</title>
-    <script type="text/javascript">
-     (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
-    <link rel="stylesheet" href="{% static 'home1/css/app.css'%}">
-    <link rel="stylesheet" href="{% static 'home1/css/theme.css'%}">
-
-    <link href="{% static 'assets/css/mediumish.css'%}" rel="stylesheet">
+    <title>Phone Shop</title>
+    <style>
+        body
+        {
+            font-family: Brush Script MT, cursive; 
+        }
+        a 
+        {
+            color: black;
+            text-decoration: none;
+        }
+        .menu-items
+        {
+            display: flex;
+            align-items: center;
+        }
+        label 
+        {
+            font-weight: bolder; 
+            font-size: large;
+            font-family: Brush Script MT, cursive; 
+        }
+        p{
+            font-weight: bolder; 
+            font-size: large;   
+        }
+    </style>
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
-        <a class="navbar-brand font-weight-bolder mr-3" href="/"><img src="{% static 'img_4.png'%}" width="30px" height="30px"></a>
-        <button class="navbar-light navbar-toggler" type="button " data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar" style="background-color: blue; color: white;">
+        <a href="{% url 'shop' %}" style="font-size: xx-large; font-weight: bolder; font-family: Brush Script MT, cursive; margin-left: 50px; color: white;">Phone Shop</a>
+        <div class="search">
+            <form method="get" action="{% url 'search' %}">
+                {% csrf_token %}
+                <input type="text" name="q" class="form-control" placeholder="Search.." style="width: 430px;">
+            </form>
+        </div>
+             
+        <div class="menu-items" style="margin-right: 10px;">
+            <label>Cart</label>&nbsp;&nbsp;
+            <a href="{% url 'cartdetails' %}" style="color: rgb(255, 255, 0);">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                </svg>
+                <!-- <span class="badge badge-warning badge-pill" style="color: black; font-size: large;">({{cn}})</span> -->
+            </a>
+            &emsp;
+            
+            {% if request.user.is_authenticated %}
+            
+            <label>Profile</label>&ensp; 
+            <a href="{% url 'about' %}" style="color: white;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width: 25px; height: 25px" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg>
+            </a>
+            &emsp; 
 
-        <div class="collapse navbar-collapse" id="navbarsDefault">
-    	<ul class="navbar-nav mr-auto align-items-center">
-            <form class="form-inline" action="{% url 'search' %} " method="get">
-                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-          </form>
-    	</ul>
-
-            <ul class="navbar-nav ml-auto align-items-center">
-    		<li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-
-        {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'cartdetails'%}">
-                    Cart
-                <span class="badge badge-warning badge-pill">{{cn}}</span></a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">
-                        <img class="rounded-circle mr-2" src="{% static 'home1/img/av.png'%}" width="30">
-                        <span class="align-middle">{{user.username}}</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-
-        {% else %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login'%}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signup'%}">Signup</a>
-                </li>
-        {% endif%}
-            </ul>
+            <label>Logout</label>&ensp; 
+            <a href="{% url 'logout' %}" style="color: white;">
+                <svg xmlns="http://www.w3.org/2000/svg"  style="width: 25px; height: 25px"  fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                  </svg>
+            </a>
+           
+            {% else %}
+                <label>Login</label>&ensp; 
+                <a href="{% url 'login' %}" style="color: white;">
+                    <svg xmlns="http://www.w3.org/2000/svg"  style="width: 25px; height: 25px"  fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                    </svg>
+                </a>
+            {% endif %}
         </div>
     </nav>
 
@@ -67,23 +93,13 @@
 
     <script src="{% static 'home1/assets/js/app.js'%}"></script>
     <script src="{% static 'home1/assets/js/theme.js'%}"></script>
-    <footer class="footer pt-5 pb-5 text-center ">
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="list-unstyled">
-                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-facebook"></i></a></li>
-                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-twitter"></i></a></li>
-                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-instagram"></i></a></li>
-                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-google-plus"></i></a></li>
-                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-behance"></i></a></li>
-                <li class="d-inline-block ml-1 mr-1"><a href="/" class="text-dark"><i class="fa fa-dribbble"></i></a></li>
-            </ul>
-        </div>
-        <p class="card-body">Copyright &copy; 2021 - All Rights Reserved -   <span class="credits font-weight-bold">
-            <a target="_blank" class="text-dark" href="{% url 'shop' %}"><u>Created By</u> JerinRaju</a>
-        </span>
-        </p>
-    </div>
-    </footer>
+    <!-- <footer class="footer pt-5 pb-5 text-center">
+        <lable>
+            <p class="card-footer">Copyright &copy; 2021 - All Rights Reserved -   <span class="credits font-weight-bold">
+                <a target="_blank" class="text-dark" href=""><u>Created By</u> JerinRaju</a>
+            </span>
+            </p>
+        </lable>
+    </footer> -->
 </body>
 </html>

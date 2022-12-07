@@ -2,36 +2,47 @@
 {% load static %}
 {% block content %}
 <br><br>
-<div class="container shadow">
+<div class="container">
+  <h1 style="font-size: xx-large; font-weight: bolder;font-family: Brush Script MT, cursive; ">Cart List</h1>
   <div class="card">
-      <h1>Cart</h1>
-
     <table class="table">
-      <tr>
+      <thead>
         <th>Image</th>
         <th>Product</th>
         <th>Price</th>
         <th>Quantity</th>
-        <th>Remove</th>
+        <th>Action</th>
         <th>Total</th>
-      </tr>
-{% for i in ci %}
-    <tr>
-
-        <td><a href="{{i.prodt.get_url}}"><img src="{{i.prodt.img.url}}" alt="" width="100px" height="100px"></a></td>
-        <td><a href="{{i.prodt.get_url}}">{{i.prodt.name}}</a></td>
-        <td>{{i.prodt.price}}</td>
-        <td>
-            <button class="btn btn-primary btn-sm" type="button" name="button"><a href="{% url 'delete' i.prodt.id %}">-</a></button>
+      </thead>
+      <tbody>
+        {% for i in ci %}
+        <tr>
+          <td><a href="{{i.prodt.get_url}}"><img src="{{i.prodt.img.url}}" alt="" width="100px" height="100px"></a></td>
+          <td><a href="{{i.prodt.get_url}}">{{i.prodt.name}}</a></td>
+          <td>{{i.prodt.price}}</td>
+          <td>
+           <a href="{% url 'delete' i.prodt.id %}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+              </svg>
+            </a>
             {{i.quantity}}
-            <button class="btn btn-primary btn-sm" type="button" name="button">
-                <a href="{% url 'add' i.prodt.id %}">+</a> </button>
-        </td>
-        <td><a href="{% url 'remove' i.prodt.id %}"><img src="{% static 'img_1.png'%}" width="20px" height="20px"></a></td>
-        <td></td>
-
-      </tr>
-{% endfor%}
+              <a href="{% url 'add' i.prodt.id %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </a> 
+            </td>
+            <td><a href="{% url 'remove' i.prodt.id %}"><img src="{% static 'img_1.png'%}" width="20px" height="20px"></a></td>
+            <td></td>
+            
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" style="text-align: center; font-size: xx-large;">No items added in cart</td>
+          </tr>
+          {% endfor%}
+        </tbody>
 
         <tr>
             <td></td>
@@ -44,6 +55,15 @@
                 Total Amount:
             </th>
             <th>{{to}}</th>
+        </tr>
+        <tr>
+          <td colspan="6">
+            {% if to > 0 %}
+            <a href="{% url 'place-order' %}" class="btn btn-success" value="Place order" style="float: right;font-size: large;">Place order</a>
+            {% else %}
+            <input type="button" class="btn btn-success" value="Place order" style="float: right;" disabled>
+            {% endif %}
+          </td>
         </tr>
     </table>
   </div>

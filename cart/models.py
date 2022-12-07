@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import User
 from jshop_app.models import Product
 
 
@@ -20,3 +19,16 @@ class Items(models.Model):
 
     def __str__(self):
         return self.prodt
+
+class Address(models.Model):
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    mobile = models.CharField(max_length=100,unique=True)
+    email = models.EmailField(unique=True)
+    address = models.TextField()
+    landmark = models.CharField(max_length=250)
+    state = models.CharField(max_length=250)
+    pincode = models.CharField(max_length=100, unique=True)
+    paymentmethod = models.CharField(max_length=250)
+
+    def __str__(self):
+        return '{}'.format(self.name)

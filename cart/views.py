@@ -7,16 +7,20 @@ from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 def Cartdetails(request, to=0, count=0, cart_items=None):
-    ct_item = None
-    try:
-        ct = Cartlist.objects.get(cart_id=Cart_id(request))
-        ct_item = Items.objects.filter(cart=ct, active=True)
-        for i in ct_item:
-            to += (i.prodt.price*i.quantity)
-            count += i.quantity
-    except ObjectDoesNotExist:
-        pass
-    return render(request, "cart.html", {'ci': ct_item, 'to': to, 'cn': count})
+    if request.user.is_authenticated:
+
+        ct_item = None
+        try:
+            ct = Cartlist.objects.get(cart_id=Cart_id(request))
+            ct_item = Items.objects.filter(cart=ct, active=True)
+            for i in ct_item:
+                to += (i.prodt.price*i.quantity)
+                count += i.quantity
+        except ObjectDoesNotExist:
+            pass
+        return render(request, "cart.html", {'ci': ct_item, 'to': to, 'cn': count})
+    else:
+        return redirect('login')
 
 
 def Cart_id(request):
@@ -63,3 +67,22 @@ def Remove(request, product_id):
     c_items = Items.objects.get(prodt=prod, cart=ct)
     c_items.delete()
     return redirect('cartdetails')
+
+def placeorder(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            name = request.POST['name']
+            mobile = request.POST['mobile']
+            email = request.POST['email']
+            address = request.POST['address']
+            landmark = request.POST['landmark']
+            state = request.POST['state']
+            pincode = request.POST['pincode']
+            ptm = request.POST['ptm']
+
+            user = Address.objects.create(name=name, mobile=mobile, email=email, address=address, landmark=landmark, state=state, pincode=pincode, paymentmethod=ptm)
+            user.save()
+            return redirect('home')
+        return render(request, 'place_order.html')
+    else:
+        return redirect('login')

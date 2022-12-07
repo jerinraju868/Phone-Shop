@@ -10,8 +10,8 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 def Shop(request):
     prodt = Product.objects.all().filter(available=True)
-    cat = Category.objects.all()
-    paginator = Paginator(prodt, 4)
+    ct = Category.objects.all()
+    paginator = Paginator(prodt, 6)
     try:
         page = int(request.GET.get('page', '1'))
     except:
@@ -20,7 +20,7 @@ def Shop(request):
         pro = paginator.page(page)
     except(EmptyPage, InvalidPage):
         pro = paginator.page(paginator.num_pages)
-    return render(request, "home.html", {'pr': prodt, 'ct': cat, 'pg': pro})
+    return render(request, "home.html", {'pr': prodt, 'ct': ct, 'pg': pro})
 
 
 def shop(request, c_slug=None):
@@ -63,26 +63,29 @@ def Search(request):
 
 
 def Signup(request):
+    
     if request.method == 'POST':
         fname = request.POST['fname']
+        lname = request.POST['lname']
         email = request.POST['email']
         uname = request.POST['uname']
-        passwd = request.POST['passwd']
-        cpasswd = request.POST['cpasswd']
+        passwd = request.POST['pwd']
+        cpasswd = request.POST['cpwd']
+
         if passwd == cpasswd:
             if User.objects.filter(username=uname).exists():
-                messages.Info(request, "username already exists")
-                return render(request, 'signuperror.html')
+                messages.Error(request, "username already exists")
+
             elif User.objects.filter(email=email).exists():
-                messages.Info(request, "email already exists")
-                return render(request, 'signuperror.html')
+                messages.Error(request, "email already exists")
+
             else:
-                user = User.objects.create_user(first_name=fname, email=email, username=uname, password=passwd)
+                user = User.objects.create_user(first_name=fname, last_name=lname, email=email, username=uname, password=passwd)
+                user.set_password(passwd)
                 user.save()
-                return redirect('/')
+                return redirect('login')
         else:
             print("password doesnot match")
-            return render(request, 'signuperror.html')
     else:
         return render(request, 'signup.html')
 
@@ -90,22 +93,38 @@ def Signup(request):
 def login(request):
     if request.method == 'POST':
         uname = request.POST['uname']
-        passwd = request.POST['passwd']
+        passwd = request.POST['pwd']
+
         user = auth.authenticate(username=uname, password=passwd)
+
         if user is not None:
-            auth.login(request, user)
-            return redirect('/')
+            if user.is_active:
+                auth.login(request, user)
+                return redirect('/')
+
+            else:
+                messages.Info(request, "User is disabled.contact admin.")
+        
         else:
-            messages.Info("invalid user")
-            return redirect('/')
+            messages.Info(request, "invalid user")
+            return redirect('login')
     else:
         return render(request, "login.html")
 
+def profile(request):
+    if request.user.is_authenticated:
+        return render(request, 'profile.html')
+    else:
+        return render('/')
 
 def About(request):
-    return render(request, "about.html")
+    if request.user.is_authenticated:
+        return render(request, "about.html")
+    else:
+        return render('/')
+    
 
 
 def logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect('login')

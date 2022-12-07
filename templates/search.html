@@ -1,68 +1,71 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block content%}
-<main role="main">
-    <section class="mt-4 mb-5">
-    	<div class="container mb-4">
-    		<h1 class="font-weight-bold title">Explore</h1>
-    		<div class="row">
-    			<nav class="navbar navbar-expand-lg navbar-light bg-white pl-2 pr-2">
-					<button class="navbar-light navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExplore" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarsExplore">
-						<ul class="navbar-nav">
-							{%for i in ct %}
-							<li class="nav-item"><a class="nav-link" href={{i.get_url}}>{{i.name}}</a></li>
-							{% endfor %}
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</div>
-	</section>
-	<div class="container">
-		<section class="featured-posts">
-			<div class="card-columns listfeaturedtag">
-				{% for j in pr %}
-				<div class="card">
-					<div class="row">
-						<div class="col-md-5 wrapthumbnail">
-							<a href="{{j.get_url}}">
-								<figure>
-						<img src={{j.img.url}} alt=""/>
-								</figure>
+<style>
+	.card 
+	{
+        transition: 0.5s;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+        width: fit-content;
+        height: fit-content;
+        border-radius: 1rem;
+        text-align: center;
+	}
+</style>
+<br>
 
-							</a>
-						</div>
-						<div class="col-md-7">
-							<div class="card-block">
-								<h2 class="card-title"><a href="">{{j.name}}</a></h2>
-								<h4 class="card-text">{{j.desc}}</h4>
-								<div class="metafooter">
-									<div class="wrapfooter">
-										<span class="author-meta">
-											<span class="post-name"><strong>Price : </strong>{{j.price}}</span><br/>
-											<span class="post-name"><strong>Stock : </strong>{{j.stock}}</span>
-										</span>
-										<a href="{{j.get_url}}" class="badge badge-success"><h6>View</h6></a></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-			<hr>
-			<center>
-				{% for p  in pg.paginator.page_range %}
-				<a href="?page={{p}}" class="btn btn-light btn-sm {% if pg.number == p %} active {% endif %}">{{p}}</a>
-				{% endfor %}
 
-			</center>
-		</section>
-<hr>
-	</div>
-</main>
+<div class="container">
+	<nav class="navbar" style="float: left; margin-left: 20px;">
+		<label style="font-weight: bolder;">Brands</label>&ensp; 
+		{% for i in ct %}
+		<a href="" class="btn btn-outline-dark btn-sm" style="border-radius: 1rem;">{{i.name}}</a>&ensp;
+	
+		{% endfor %}
+	</nav><br><br>
+    <div class="card-deck">
+        <div class="row">
+			{% for i in pr %}
+			<div class="col-md"> 
+                <div class="card">
+                    <div class="card-body">
+						<a href="{{i.get_url}}">
+                            <img src="{{i.img.url}}" style="width: 250px; height: 350px;border-radius: 1rem;"><br><br>
+                        </a> 
+                        <div>
+                            <label style="font-weight: bolder; font-size: x-large;float: left;">
+                                <a href="{{i.get_url}}" >{{i.name}}</a>
+                            </label><br><br>
+                        </div>
+                        <label style="float: left;">Price : {{i.price}} ₹</label><br><br>
+                        {% if i.stock < 15 %}
+                            <label style="float: left;">Stock Left : <label style="color: red;">Only</label>&nbsp;{{i.stock}} <label style="color: red;">Hurryup.!</label>
+                        </label><br><br>
+                        {% else %}
+                            <label style="float: left;">Stock Left : {{i.stock}}</label><br><br>
+                        {% endif %}
+
+                        <label style="float: left;">Discount : {{i.availible | yesno }}</label><br><br>
+
+                        <a href="{% url 'add' i.id %}">
+                        <button class="btn btn-warning btn-sm" style="float: left; border-radius: 1rem;">Add to cart</button>
+                        </a>
+						<a href="{{i.get_url}}">
+							<button class="btn btn-danger btn-sm" style="float: right;border-radius: 1rem;">View</button>
+
+						</a>
+                    </div>
+                </div><br>
+            </div>
+            {% endfor %}
+        </div>  <br>          
+    </div>
+	<center>
+		{% for p  in pg.paginator.page_range %}
+		<a href="?page={{p}}" class="btn btn-light btn-sm {% if pg.number == p %} active {% endif %}">{{p}}</a>
+		{% endfor %}
+	</center>
+    
+</div>
 {% endblock%}

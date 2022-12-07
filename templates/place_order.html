@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .card 
+	{
+        align-items: center;
+        transition: 0.5s;
+        backface-visibility: hidden;
+        margin-right: auto;
+        margin-left: auto;
+        width: fit-content;
+        height: fit-content;
+        box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+        border-radius: 1rem;
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 10px;
+        text-align: center;
+	}
+	
+	
+</style>
+<br><br>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-title" style="text-align: center">
+            <label style="font-size: xx-large; font-weight: bolder;margin-top: 10px;">Address Details</label> 
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" name="name" placeholder="Name" required autocomplete="off"><br>
+                    </div>
+                    <div class="col">
+                        <input type="tel" class="form-control" name="mobile" placeholder="Mobile number" pattern="[0-9]{10}" required autocomplete="off"><br>
+                        
+                    </div>
+                </div>
+                <input type="email" class="form-control" name="email" placeholder="email@gmail.com" required autocomplete="off"><br>
+                <textarea class="form-control" name="address" placeholder="Address" required autocomplete="off"></textarea><br>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" name="landmark" placeholder="Landmark" required autocomplete="off"><br>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="state" placeholder="State" required autocomplete="off"><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="pincode" class="form-control" name="pincode" placeholder="pincode" pattern="[0-9]{6}" required autocomplete="off"><br>
+                    </div>
+                    <div class="col">
+                        <select name="cars" name="ptm"  class="form-control" required>
+                            <option selected="selected" disabled>--Select Payment type--</option>
+                            <option  value="cod">Cash on Delivery</option>
+                            <option value="card">Credit Card</option>
+                            <option  value="upi">UPI Payment</option>
+                          </select><br>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <input type="submit" class="btn btn-primary" value="Proceed Payment">
+                </div>
+            </form><br>
+            <div>
+                {% for message in messages %}
+                    <script>alert('{{message}}');</script>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
