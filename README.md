@@ -1,3 +1,11 @@
 # Phone-Shop
 ![Screenshot from 2022-12-08 00-10-39](https://user-images.githubusercontent.com/117073931/206268420-c2e021c7-2fbc-4bae-9896-8c1552694956.png)
 ![Screenshot from 2022-12-08 00-13-08](https://user-images.githubusercontent.com/117073931/206268538-0ec9c175-9b83-4c70-bd94-2c20f64682dc.png)
+![Screenshot from 2022-12-08 00-14-09](https://user-images.githubusercontent.com/117073931/206268693-c65aea5f-11ff-497f-9138-fb64153eac22.png)
+![Screenshot from 2022-12-08 00-15-01](https://user-images.githubusercontent.com/117073931/206268829-15510f7e-da0b-46c2-b875-4a2703e3b6b3.png)
+![Screenshot from 2022-12-08 00-15-44](https://user-images.githubusercontent.com/117073931/206268966-0692d6a0-de98-40d9-a6f8-3b376e78fd4e.png)
+![Screenshot from 2022-12-08 00-16-13](https://user-images.githubusercontent.com/117073931/206269076-ea82775f-3dbd-4663-aeea-6163233e6d85.png)
+![Screenshot from 2022-12-08 00-16-29](https://user-images.githubusercontent.com/117073931/206269126-c80723f5-442c-41bb-8f95-45751676cc56.png)
+![Screenshot from 2022-12-08 00-17-14](https://user-images.githubusercontent.com/117073931/206269262-1c28455a-ff4d-4b00-8ac7-1fc03c1e98d6.png)
+![Screenshot from 2022-12-08 00-17-34](https://user-images.githubusercontent.com/117073931/206269332-e86bc507-6956-41c5-bd57-3318d00831fe.png)
+![Screenshot from 2022-12-08 00-17-53](https://user-images.githubusercontent.com/117073931/206269382-0794f552-b782-4e83-a7bb-7e055083ba54.png)
